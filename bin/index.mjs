@@ -1,3 +1,5 @@
+import fs from 'fs';
+
 /**
  * TODO:
  * 
@@ -7,3 +9,17 @@
  * 4. Populate announce & announce-list from .fastresume)
  * 5. Save as `export_${hash}.torrent`
  */
+
+// TODO: CLI arg (w/ default)?
+const QBIT_DIR = `/home/raghu/.local/share/qBittorrent/BT_backup`;
+
+// TOOD: CLI arg (default to pwd?)
+const DESTINATION_DIR = `/tmp`;
+
+if (fs.statSync(QBIT_DIR).isDirectory() === false){
+    throw new Error("The qbit directory is invalid");
+}
+
+if (fs.statSync(DESTINATION_DIR).isDirectory() === false){
+    throw new Error("The destination directory is invalid");
+}
