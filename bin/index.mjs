@@ -25,4 +25,4 @@ if (fs.statSync(DESTINATION_DIR).isDirectory() === false){
     throw new Error("The destination directory is invalid");
 }
 
-readQbitDir(QBIT_DIR);
+readQbitDir(QBIT_DIR, DESTINATION_DIR);
