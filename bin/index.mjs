@@ -1,4 +1,5 @@
 import fs from 'fs';
+import { readQbitDir } from './utils.mjs';
 
 /**
  * TODO:
@@ -23,3 +24,5 @@ if (fs.statSync(QBIT_DIR).isDirectory() === false){
 if (fs.statSync(DESTINATION_DIR).isDirectory() === false){
     throw new Error("The destination directory is invalid");
 }
+
+readQbitDir(QBIT_DIR);

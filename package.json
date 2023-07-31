@@ -10,6 +10,7 @@
   "author": "Raghu Saxena",
   "license": "GPL-3.0",
   "dependencies": {
+    "@ckcr4lyf/logger": "^0.0.5",
     "bencode": "^3.0.3"
   }
 }
