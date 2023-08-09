@@ -9,7 +9,6 @@ export const getLogger = () => {
 
 export const readQbitDir = (dirname, targetDir) => {
     const logger = getLogger();
-    // TODO: Read the .torrent, and associating .fastresume
 
     // list of hashes we've already processed
     const done = [];
@@ -41,7 +40,7 @@ export const readQbitDir = (dirname, targetDir) => {
             fs.writeFileSync(path.join(targetDir, dstFile), remake);
             logger.info(`Wrote to ${dstFile}`);
         } catch (e){
-            logger.error(`Failed to process, error: ${e}`);
+            logger.error(`Failed to process ${hash}, error: ${e}`);
         }
     }
 }
