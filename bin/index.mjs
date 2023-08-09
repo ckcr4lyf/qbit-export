@@ -1,5 +1,7 @@
 import fs from 'fs';
-import { readQbitDir } from '../src/utils.mjs';
+import { getLogger, readQbitDir } from '../src/utils.mjs';
+
+const logger = getLogger();
 
 /**
  * TODO:
@@ -11,18 +13,22 @@ import { readQbitDir } from '../src/utils.mjs';
  * 5. Save as `export_${hash}.torrent`
  */
 
-// TODO: CLI arg (w/ default)?
-const QBIT_DIR = `/home/raghu/.local/share/qBittorrent/BT_backup`;
+if (process.argv.length !== 4){
+    logger.warn(`Usage: qbit-export [path to BT_backup] [path to folder to export to]`);
+    process.exit(1);
+}
 
-// TOOD: CLI arg (default to pwd?)
-const DESTINATION_DIR = `/tmp`;
+const QBIT_DIR = process.argv[2];
+const DESTINATION_DIR = process.argv[3];
 
 if (fs.statSync(QBIT_DIR).isDirectory() === false){
-    throw new Error("The qbit directory is invalid");
+    logger.error(`Provided qbit directory is invalid! (${QBIT_DIR})`);
+    process.exit(-1);
 }
 
 if (fs.statSync(DESTINATION_DIR).isDirectory() === false){
-    throw new Error("The destination directory is invalid");
+    logger.error(`Provided destination directory is invalid! (${DESTINATION_DIR})`);
+    process.exit(-1);
 }
 
 readQbitDir(QBIT_DIR, DESTINATION_DIR);

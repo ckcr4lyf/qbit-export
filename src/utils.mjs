@@ -3,7 +3,7 @@ import bencode from 'bencode';
 import path from 'path';
 import { Logger, LOGLEVEL } from '@ckcr4lyf/logger';
 
-const getLogger = () => {
+export const getLogger = () => {
     return new Logger({ loglevel: LOGLEVEL.DEBUG });
 }
 
