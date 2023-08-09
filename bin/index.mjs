@@ -1,5 +1,5 @@
 import fs from 'fs';
-import { readQbitDir } from './utils.mjs';
+import { readQbitDir } from '../src/utils.mjs';
 
 /**
  * TODO:
