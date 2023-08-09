@@ -12,5 +12,9 @@
   "dependencies": {
     "@ckcr4lyf/logger": "^0.0.5",
     "bencode": "^3.0.3"
+  },
+  "preferGlobal": true,
+  "bin": {
+    "qbit-export": "./bin/index.mjs"
   }
 }
