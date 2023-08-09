@@ -11,6 +11,9 @@
       "dependencies": {
         "@ckcr4lyf/logger": "^0.0.5",
         "bencode": "^3.0.3"
+      },
+      "bin": {
+        "qbit-export": "bin/index.mjs"
       }
     },
     "node_modules/@ckcr4lyf/logger": {
