@@ -14,22 +14,26 @@ This program will parse both the `.torrent` and the `.fastresume` , splice the a
 
 You must have Node.JS installed, e.g. [via n](https://github.com/tj/n) (or similar). Recommended is v18.17+ (current LTS)
 
-Install it via:
+## Installation
 
-```
+```bash
 npm i -g qbit-export
 ```
 
 And then run it via:
 
-```
-qbit-export [PATH TO BT_BACKUP] [PATH TO EXPORT TO]
+```bash
+qbit-export [OPTIONS] [PATH TO BT_BACKUP] [PATH TO EXPORT TO]
 ```
 
-Example:
+### Options
 
-```
-qbit-export "/home/ubuntu/.local/share/qBittorrent/BT_backup/" "/tmp/export/"
+- `-n` (optional): Use the torrent name for the destination file instead of the hash.
+
+### Example
+
+```bash
+qbit-export -n "/home/ubuntu/.local/share/qBittorrent/BT_backup/" "/tmp/export/"
 ```
 
 ## Help
