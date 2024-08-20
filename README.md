@@ -29,11 +29,13 @@ qbit-export [OPTIONS] [PATH TO BT_BACKUP] [PATH TO EXPORT TO]
 ### Options
 
 -   `-n` (optional): Use the torrent name for the destination file instead of the hash.
+-   `-t "comma,separated,tags"` (optional): Only export torrents with a tag matching at least one of these tags
+-   `-c "comma,separated,categories"` (optional): Only export torrents with the category matching one of these categories
 
 ### Example
 
 ```bash
-qbit-export -n "/home/ubuntu/.local/share/qBittorrent/BT_backup/" "/tmp/export/"
+qbit-export -n -t "web,bluray" -c "permaseeding" "/home/ubuntu/.local/share/qBittorrent/BT_backup/" "/tmp/export/"
 ```
 
 ## Help
