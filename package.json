@@ -5,6 +5,8 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
+    "lint": "npx prettier . --write",
+    "lint-check": "npx prettier . --check",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Raghu Saxena",
@@ -17,5 +19,8 @@
   "preferGlobal": true,
   "bin": {
     "qbit-export": "./bin/index.mjs"
+  },
+  "devDependencies": {
+    "prettier": "3.3.3"
   }
 }
