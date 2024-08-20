@@ -19,7 +19,7 @@ const logger = getLogger();
 
 const argv = yargs(hideBin(process.argv))
     .command(
-        '$0 [-n] [-t "comma,separated,tags"] <qbit_dir> <destination_dir>',
+        '$0 [-n] [-t "comma,separated,tags"] [-c "comma,separated,categories"] <qbit_dir> <destination_dir>',
         'Export .torrent files from qBittorrent with the announce field properly populated',
         (yargs) => {
             yargs
@@ -43,6 +43,11 @@ const argv = yargs(hideBin(process.argv))
         description: 'Filter tags to export (match at least one, comma-separated)',
         type: 'string',
     })
+    .option('c', {
+        alias: 'categories',
+        description: 'Filter categories to export (match one of the categories, comma-separated)',
+        type: 'string',
+    })
     .alias('help', 'h')
     .demandCommand(2, 'You need to provide two directories').argv;
 
@@ -52,6 +57,11 @@ const DESTINATION_DIR = argv.destination_dir;
 let tagsToFilter = [];
 if (argv.t !== undefined){
     tagsToFilter.push(...argv.t.split(','));
+}
+
+let categoriesToFilter = [];
+if (argv.c !== undefined){
+    categoriesToFilter.push(...argv.c.split(','));
 }
 
 try {
@@ -78,4 +88,4 @@ try {
     process.exit(-1);
 }
 
-readQbitDir(QBIT_DIR, DESTINATION_DIR, argv.n, tagsToFilter);
+readQbitDir(QBIT_DIR, DESTINATION_DIR, argv.n, tagsToFilter, categoriesToFilter);

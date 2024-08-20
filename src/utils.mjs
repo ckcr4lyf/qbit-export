@@ -13,8 +13,9 @@ export const getLogger = () => {
  * @param {string} targetDir Path to export to
  * @param {boolean} useName Whether we should export to [torrentName].torrent
  * @param {string[]} tagsToFilter List of tags to filter when exporting
+ * @param {string[]} categoriesToFilter List of categories to filter when exporting
  */
-export const readQbitDir = async (dirname, targetDir, useName, tagsToFilter) => {
+export const readQbitDir = async (dirname, targetDir, useName, tagsToFilter, categoriesToFilter) => {
     const logger = getLogger();
 
     const files = (await fs.readdir(dirname))
@@ -47,6 +48,16 @@ export const readQbitDir = async (dirname, targetDir, useName, tagsToFilter) => 
                     logger.debug(`Passed tag filter, processing...`);
                 } else {
                     logger.debug(`Did not pass tag filter, skipping`);
+                    continue;
+                }
+            }
+
+            const decodedCategory = String.fromCharCode.apply(null, decodedFastresume['qBt-category']);
+            if (categoriesToFilter.length !== 0){
+                if (categoriesToFilter.includes(decodedCategory)){
+                    logger.debug(`Passed category filter, processing...`);
+                } else {
+                    logger.debug(`Did not pass category filter, skipping`);
                     continue;
                 }
             }
