@@ -28,7 +28,7 @@ qbit-export [OPTIONS] [PATH TO BT_BACKUP] [PATH TO EXPORT TO]
 
 ### Options
 
-- `-n` (optional): Use the torrent name for the destination file instead of the hash.
+-   `-n` (optional): Use the torrent name for the destination file instead of the hash.
 
 ### Example
 

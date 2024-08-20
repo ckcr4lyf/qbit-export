@@ -31,7 +31,7 @@ const argv = yargs(hideBin(process.argv))
                     describe: 'Path to the directory where the exported files will be saved',
                     type: 'string',
                 });
-        }
+        },
     )
     .option('n', {
         alias: 'name',
@@ -55,12 +55,12 @@ const QBIT_DIR = argv.qbit_dir;
 const DESTINATION_DIR = argv.destination_dir;
 
 let tagsToFilter = [];
-if (argv.t !== undefined){
+if (argv.t !== undefined) {
     tagsToFilter.push(...argv.t.split(','));
 }
 
 let categoriesToFilter = [];
-if (argv.c !== undefined){
+if (argv.c !== undefined) {
     categoriesToFilter.push(...argv.c.split(','));
 }
 
@@ -83,7 +83,7 @@ try {
     }
 } catch (error) {
     logger.error(
-        `Cannot read or write to destination directory: ${DESTINATION_DIR}. Please check your permissions.`
+        `Cannot read or write to destination directory: ${DESTINATION_DIR}. Please check your permissions.`,
     );
     process.exit(-1);
 }

@@ -1,26 +1,26 @@
 {
-  "name": "qbit-export",
-  "version": "1.1.0",
-  "description": "Export .torrent files WITH tracker!",
-  "main": "index.js",
-  "type": "module",
-  "scripts": {
-    "lint": "npx prettier . --write",
-    "lint-check": "npx prettier . --check",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "Raghu Saxena",
-  "license": "GPL-3.0",
-  "dependencies": {
-    "@ckcr4lyf/logger": "^0.0.5",
-    "bencode": "^3.0.3",
-    "yargs": "^17.0.1"
-  },
-  "preferGlobal": true,
-  "bin": {
-    "qbit-export": "./bin/index.mjs"
-  },
-  "devDependencies": {
-    "prettier": "3.3.3"
-  }
+    "name": "qbit-export",
+    "version": "1.1.0",
+    "description": "Export .torrent files WITH tracker!",
+    "main": "index.js",
+    "type": "module",
+    "scripts": {
+        "lint": "npx prettier . --write",
+        "lint-check": "npx prettier . --check",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "Raghu Saxena",
+    "license": "GPL-3.0",
+    "dependencies": {
+        "@ckcr4lyf/logger": "^0.0.5",
+        "bencode": "^3.0.3",
+        "yargs": "^17.0.1"
+    },
+    "preferGlobal": true,
+    "bin": {
+        "qbit-export": "./bin/index.mjs"
+    },
+    "devDependencies": {
+        "prettier": "3.3.3"
+    }
 }
