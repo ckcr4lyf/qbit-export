@@ -19,7 +19,7 @@ const logger = getLogger();
 
 const argv = yargs(hideBin(process.argv))
     .command(
-        '$0 [-n] <qbit_dir> <destination_dir>',
+        '$0 [-n] [-t "comma,separated,tags"] <qbit_dir> <destination_dir>',
         'Export .torrent files from qBittorrent with the announce field properly populated',
         (yargs) => {
             yargs
@@ -38,11 +38,21 @@ const argv = yargs(hideBin(process.argv))
         description: 'Use the torrent name for the destination file instead of the hash',
         type: 'boolean',
     })
+    .option('t', {
+        alias: 'tags',
+        description: 'Filter tags to export (match at least one, comma-separated)',
+        type: 'string',
+    })
     .alias('help', 'h')
     .demandCommand(2, 'You need to provide two directories').argv;
 
 const QBIT_DIR = argv.qbit_dir;
 const DESTINATION_DIR = argv.destination_dir;
+
+let tagsToFilter = [];
+if (argv.t !== undefined){
+    tagsToFilter.push(...argv.t.split(','));
+}
 
 try {
     fs.accessSync(QBIT_DIR, fs.constants.R_OK);
@@ -68,4 +78,4 @@ try {
     process.exit(-1);
 }
 
-readQbitDir(QBIT_DIR, DESTINATION_DIR, argv.n);
+readQbitDir(QBIT_DIR, DESTINATION_DIR, argv.n, tagsToFilter);
