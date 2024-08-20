@@ -19,7 +19,7 @@ const logger = getLogger();
 
 const argv = yargs(hideBin(process.argv))
     .command(
-        '$0 [-n] <qbit_dir> <destination_dir>',
+        '$0 [-n] [-t "comma,separated,tags"] [-c "comma,separated,categories"] <qbit_dir> <destination_dir>',
         'Export .torrent files from qBittorrent with the announce field properly populated',
         (yargs) => {
             yargs
@@ -31,18 +31,38 @@ const argv = yargs(hideBin(process.argv))
                     describe: 'Path to the directory where the exported files will be saved',
                     type: 'string',
                 });
-        }
+        },
     )
     .option('n', {
         alias: 'name',
         description: 'Use the torrent name for the destination file instead of the hash',
         type: 'boolean',
     })
+    .option('t', {
+        alias: 'tags',
+        description: 'Filter tags to export (match at least one, comma-separated)',
+        type: 'string',
+    })
+    .option('c', {
+        alias: 'categories',
+        description: 'Filter categories to export (match one of the categories, comma-separated)',
+        type: 'string',
+    })
     .alias('help', 'h')
     .demandCommand(2, 'You need to provide two directories').argv;
 
 const QBIT_DIR = argv.qbit_dir;
 const DESTINATION_DIR = argv.destination_dir;
+
+let tagsToFilter = [];
+if (argv.t !== undefined) {
+    tagsToFilter.push(...argv.t.split(','));
+}
+
+let categoriesToFilter = [];
+if (argv.c !== undefined) {
+    categoriesToFilter.push(...argv.c.split(','));
+}
 
 try {
     fs.accessSync(QBIT_DIR, fs.constants.R_OK);
@@ -63,9 +83,9 @@ try {
     }
 } catch (error) {
     logger.error(
-        `Cannot read or write to destination directory: ${DESTINATION_DIR}. Please check your permissions.`
+        `Cannot read or write to destination directory: ${DESTINATION_DIR}. Please check your permissions.`,
     );
     process.exit(-1);
 }
 
-readQbitDir(QBIT_DIR, DESTINATION_DIR, argv.n);
+readQbitDir(QBIT_DIR, DESTINATION_DIR, argv.n, tagsToFilter, categoriesToFilter);
