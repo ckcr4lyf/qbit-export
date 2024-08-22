@@ -1,0 +1,15 @@
+name: Node.js CI
+
+on: [pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - run: npm ci
+    - run: |
+        mkdir -p /tmp/os
+        ./bin/index.mjs -c operating-systems ./__fixtures__/BT_backup/ /tmp/os/
+        find /tmp/os/ -type f -exec sha256sum "{}" + > /tmp/os_result.txt
+        diff ./__fixtures__/expected_os_result.txt /tmp/os_result.txt
