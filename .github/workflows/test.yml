@@ -3,7 +3,8 @@ name: Node.js CI
 on: [pull_request]
 
 jobs:
-  build:
+  test:
+    name: Test with category filter
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
@@ -11,5 +12,5 @@ jobs:
     - run: |
         mkdir -p /tmp/os
         ./bin/index.mjs -c operating-systems ./__fixtures__/BT_backup/ /tmp/os/
-        find /tmp/os/ -type f -exec sha256sum "{}" + > /tmp/os_result.txt
+        find /tmp/os/ -type f | sort | xargs sha256sum > /tmp/os_result.txt
         diff ./__fixtures__/expected_os_result.txt /tmp/os_result.txt
