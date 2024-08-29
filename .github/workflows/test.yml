@@ -1,0 +1,25 @@
+name: Node.js CI
+
+on: [pull_request]
+
+jobs:
+  test:
+    name: Test with various filters
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Install dependencies
+      run: npm ci
+    - name: Test with category filter
+      run: |
+        mkdir -p /tmp/os
+        ./bin/index.mjs -c operating-systems ./__fixtures__/BT_backup/ /tmp/os/
+        find /tmp/os/ -type f | sort | xargs sha256sum > /tmp/os_result.txt
+        diff ./__fixtures__/expected_os_result.txt /tmp/os_result.txt
+    - name: Test with tag filter
+      run: |
+        mkdir -p /tmp/desktop
+        ./bin/index.mjs -t desktop ./__fixtures__/BT_backup/ /tmp/desktop/
+        find /tmp/desktop/ -type f | sort | xargs sha256sum > /tmp/desktop_result.txt
+        diff ./__fixtures__/expected_desktop_result.txt /tmp/desktop_result.txt        
+    
