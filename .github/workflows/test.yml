@@ -1,6 +1,9 @@
 name: Node.js CI
 
-on: [pull_request]
+on:
+  pull_request:
+  push:
+    branches: ['master']
 
 jobs:
   test:
@@ -22,4 +25,9 @@ jobs:
         ./bin/index.mjs -t desktop ./__fixtures__/BT_backup/ /tmp/desktop/
         find /tmp/desktop/ -type f | sort | xargs sha256sum > /tmp/desktop_result.txt
         diff ./__fixtures__/expected_desktop_result.txt /tmp/desktop_result.txt        
-    
+    - name: Test with name export
+      run: |
+        mkdir -p /tmp/name
+        ./bin/index.mjs -n ./__fixtures__/BT_backup/ /tmp/name/
+        find /tmp/name/ -type f | sort | xargs -d '\n' sha256sum > /tmp/name_result.txt
+        diff ./__fixtures__/expected_name_result.txt /tmp/name_result.txt        

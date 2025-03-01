@@ -38,8 +38,16 @@ export const readQbitDir = async (
             const decodedTorrent = bencode.decode(torrentFile);
             const decodedFastresume = bencode.decode(fastresumeFile);
 
+            const torrentName = String.fromCharCode.apply(null, decodedTorrent.info.name);
+
             if (decodedTorrent.announce !== undefined) {
-                logger.warn(`Announce was not undefined! no need to export...`);
+                logger.warn(`[${torrentName}] Announce was not undefined! no need to export...`);
+                continue;
+            }
+
+            if (decodedFastresume.trackers.length === 0) {
+                console.log(decodedFastresume.trackers);
+                logger.warn(`[${torrentName}] No announce URLs in fastresume, skipping...`);
                 continue;
             }
 
@@ -77,13 +85,12 @@ export const readQbitDir = async (
             decodedTorrent['announce-list'] = decodedFastresume.trackers[0];
 
             const remake = bencode.encode(decodedTorrent);
-            const dstFile = useName
-                ? `${String.fromCharCode.apply(null, decodedFastresume.name)}_export.torrent`
-                : `${hash}_export.torrent`;
+            const dstFile = useName ? `${torrentName}_export.torrent` : `${hash}_export.torrent`;
             await fs.writeFile(path.join(targetDir, dstFile), remake);
             logger.info(`Wrote to ${dstFile}`);
         } catch (e) {
             logger.error(`Failed to process ${hash}, error: ${e}`);
+            console.error(e);
         }
     }
 };
