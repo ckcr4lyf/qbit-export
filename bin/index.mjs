@@ -31,7 +31,7 @@ const argv = yargs(hideBin(process.argv))
                     describe: 'Path to the directory where the exported files will be saved',
                     type: 'string',
                 });
-        },
+        }
     )
     .option('n', {
         alias: 'name',
@@ -83,7 +83,7 @@ try {
     }
 } catch (error) {
     logger.error(
-        `Cannot read or write to destination directory: ${DESTINATION_DIR}. Please check your permissions.`,
+        `Cannot read or write to destination directory: ${DESTINATION_DIR}. Please check your permissions.`
     );
     process.exit(-1);
 }
