@@ -20,7 +20,7 @@ export const readQbitDir = async (
     targetDir,
     useName,
     tagsToFilter,
-    categoriesToFilter
+    categoriesToFilter,
 ) => {
     const logger = getLogger();
 
@@ -57,7 +57,7 @@ export const readQbitDir = async (
              * @type {string[]}
              */
             const decodedTags = decodedFastresume['qBt-tags'].map((el) =>
-                String.fromCharCode.apply(null, el)
+                String.fromCharCode.apply(null, el),
             );
             if (tagsToFilter.length !== 0) {
                 if (tagsToFilter.some((allowedTag) => decodedTags.includes(allowedTag))) {
@@ -70,7 +70,7 @@ export const readQbitDir = async (
 
             const decodedCategory = String.fromCharCode.apply(
                 null,
-                decodedFastresume['qBt-category']
+                decodedFastresume['qBt-category'],
             );
             if (categoriesToFilter.length !== 0) {
                 if (categoriesToFilter.includes(decodedCategory)) {
