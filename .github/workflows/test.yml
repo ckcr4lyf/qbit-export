@@ -30,4 +30,4 @@ jobs:
         mkdir -p /tmp/name
         ./bin/index.mjs -n ./__fixtures__/BT_backup/ /tmp/name/
         find /tmp/name/ -type f | sort | xargs -d '\n' sha256sum > /tmp/name_result.txt
-        diff ./__fixtures__/expected_desktop_result.txt /tmp/name_result.txt        
+        diff ./__fixtures__/expected_name_result.txt /tmp/name_result.txt        
